@@ -1,0 +1,12 @@
+#set("staff") {
+    <p>Choose a staff member to view:</p>
+    <ul>
+        #for(name in allNames) {
+            <li><a href="http://localhost:8080/staff/#(name)">#capitalize(name)</a>
+            </li>
+    }
+    </ul>
+}
+
+#embed("master")
+

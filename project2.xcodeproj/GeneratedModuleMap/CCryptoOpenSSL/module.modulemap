@@ -1,0 +1,4 @@
+module CCryptoOpenSSL {
+    umbrella "/Users/bhhakes/development/server-side-swift/ss-swift-vapor-book/project2/.build/checkouts/crypto/Sources/CCryptoOpenSSL/include"
+    export *
+}
