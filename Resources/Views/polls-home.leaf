@@ -1,0 +1,12 @@
+#set("polls") {
+    <p>Choose a poll to view:</p>
+    <ul>
+        #for(poll in polls) {
+            <li><a href="http://localhost:8080/polls/list</a>
+            </li>
+    }
+    </ul>
+}
+
+#embed("master")
+

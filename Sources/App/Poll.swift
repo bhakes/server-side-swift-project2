@@ -10,7 +10,7 @@ import Vapor
 import Fluent
 import FluentSQLite
 
-struct Poll: Content, SQLiteUUIDModel, Migration {
+struct Poll: Content, SQLiteUUIDModel, Migration, Codable {
     var title: String
     var option1Text: String
     var option2Text: String

@@ -1,0 +1,5 @@
+#set("polls") {
+    <p>Choose the poll to view:</p>
+}
+
+#embed("master")

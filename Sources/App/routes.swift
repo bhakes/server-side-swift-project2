@@ -7,6 +7,11 @@ import Foundation
 /// [Learn More →](https://docs.vapor.codes/3.0/getting-started/structure/#routesswift)
 public func routes(_ router: Router) throws {
     
+    router.get { req -> Future<View> in
+        let context = [String: String]()
+        return try req.view().render("home", context)
+    }
+    
     // were using the decoding helper form of post():
     // the first parameter is an object we want Vapor to decode
     // and everything after at is the route it should be attached to.
@@ -47,7 +52,7 @@ public func routes(_ router: Router) throws {
     so it can be returned as JSON, and that automatically means
     arrays of polls can be returned as JSON.
     */
-    router.get("polls", "list") { req -> Future<[Poll]> in
+    router.get("polls", "list") { req -> Future<View> in
         
         /*
          Running Poll.query() starts a Fluent search for Poll
@@ -62,7 +67,19 @@ public func routes(_ router: Router) throws {
          to processing other things.
          
          */
-        return Poll.query(on: req).all()
+        
+        let futurePolls: Future<[Poll]> = Poll.query(on: req).all()
+        
+        var polls: [Poll] = []
+        let _ = futurePolls.map { closurePolls in
+            for poll in closurePolls {
+                polls.append(poll)
+            }
+        }
+        
+        var context = [String: [Poll]]()
+        context["polls"] = polls
+        return try req.view().render("polls", context)
     }
     
     /*
